@@ -30,6 +30,9 @@ namespace _2_convex_hull
             System.Threading.Thread.Sleep(milliseconds);
         }
 
+        // Computes and draws the convex hull of a given unordered list of points
+        // Time complexity: O(nlogn)
+        // Space complexity: O(logn)
         public void Solve(List<PointF> pointList)
         {
             pointList.Sort(new PointComparer());
@@ -37,6 +40,9 @@ namespace _2_convex_hull
             poly.draw(g);
         }
 
+        // Takes a list of X-ordered points and returns a Polygon representing the convex hull of the points
+        // Time complexity: O(nlogn)
+        // Space complexity: O(logn)
         public Polygon getConvexHull(List<PointF> pointList)
         {
             //Console.WriteLine("getConvexHull");
@@ -65,6 +71,9 @@ namespace _2_convex_hull
             return poly;
         }
 
+        // Creates and returns a Polygon from 2 points
+        // Time complexity: O(1)
+        // Space complexity: O(1)
         public Polygon create2PointPolygon(List<PointF> pointlist)
         {
             //Console.WriteLine("create2PointPolygon");
@@ -81,7 +90,10 @@ namespace _2_convex_hull
                 return null;
             }
         }
-            
+        
+        // Creates and returns a Polygon from 3 points
+        // Time complexity: O(1)
+        // Space complexity: O(1)
         public Polygon create3PointPolygon(List<PointF> pointlist)
         {
             //Console.WriteLine("create3PointPolygon");
@@ -112,6 +124,9 @@ namespace _2_convex_hull
             }
         }
 
+        // Returns the slope between two points
+        // Time Complexity: O(1)
+        // Space Complexity: O(1)
         public double getSlope(DirectedPoint left, DirectedPoint right)
         {
             //Console.WriteLine("getSlope for (" + left.getPoint().X + ", " + left.getPoint().Y + ") and (" + right.getPoint().X + ", " + right.getPoint().Y + ")\n");
@@ -121,6 +136,9 @@ namespace _2_convex_hull
             return rise / run;
         }
 
+        // Accepts two Polygons and returns the Polygon produced by merging them
+        // Time complexity: O(n)
+        // Space complexity: O(1)
         public Polygon mergeConvexHulls(Polygon left, Polygon right)
         {
             //Console.WriteLine("mergeConvexHulls");
@@ -134,6 +152,7 @@ namespace _2_convex_hull
 
             while (!leftDone || !rightDone)
             {
+                // Do left side
                 while (!leftDone)
                 {
                     temp = topLeft.getPrev();
@@ -173,20 +192,21 @@ namespace _2_convex_hull
                     if (getSlope(temp, bottomRight) < getSlope(bottomLeft, bottomRight))
                     {
                         bottomLeft = temp;
-                        rightDone = false;
+                        rightDone = false;// If we changed the top left node, the top right can't be "done" anymore
                     }
                     else
                     {
                         leftDone = true;
                     }
                 }
+                // Do right side
                 while (!rightDone)
                 {
                     temp = bottomRight.getPrev();
                     if (getSlope(bottomLeft, temp) > getSlope(bottomLeft, bottomRight))
                     {
                         bottomRight = temp;
-                        leftDone = false;
+                        leftDone = false;// If we changed the top right node, the top left can't be "done" anymore
                     }
                     else
                     {
@@ -216,6 +236,9 @@ namespace _2_convex_hull
             this.right = right;
         }
 
+        // Draws the Polygon on the canvas
+        // Time complexity: O(n)
+        // Space complexity: O(n)
         public void draw(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -294,6 +317,9 @@ namespace _2_convex_hull
 
     class PointComparer : IComparer<PointF>
     {
+        // Compares two points to determine their ordering
+        // Time complexity: O(1)
+        // Space complexity: O(1)
         public int Compare(PointF a, PointF b)
         {
             double XDiff = a.X - b.X;
