@@ -159,7 +159,7 @@ namespace _2_convex_hull
                     if (getSlope(temp, topRight) > getSlope(topLeft, topRight))
                     {
                         topLeft = temp;
-                        rightDone = false;
+                        rightDone = false;// If we changed the top left node, the top right can't be "done" anymore
                     }
                     else
                     {
@@ -172,7 +172,7 @@ namespace _2_convex_hull
                     if (getSlope(topLeft, temp) < getSlope(topLeft, topRight))
                     {
                         topRight = temp;
-                        leftDone = false;
+                        leftDone = false;// If we changed the top right node, the top left can't be "done" anymore
                     }
                     else
                     {
@@ -192,7 +192,7 @@ namespace _2_convex_hull
                     if (getSlope(temp, bottomRight) < getSlope(bottomLeft, bottomRight))
                     {
                         bottomLeft = temp;
-                        rightDone = false;// If we changed the top left node, the top right can't be "done" anymore
+                        rightDone = false;
                     }
                     else
                     {
@@ -206,7 +206,7 @@ namespace _2_convex_hull
                     if (getSlope(bottomLeft, temp) > getSlope(bottomLeft, bottomRight))
                     {
                         bottomRight = temp;
-                        leftDone = false;// If we changed the top right node, the top left can't be "done" anymore
+                        leftDone = false;
                     }
                     else
                     {
